@@ -7,6 +7,8 @@ target/
 dbt_packages/
 logs/
 profiles.yml
+jaffle-data/
+jaffle_shop.duckdb
 
 .DS_Store
 

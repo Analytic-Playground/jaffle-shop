@@ -1,0 +1,51 @@
+models:
+  - name: location_performance
+    description: Summary of order metrics by location, one row per location.
+    columns:
+      - name: location_id
+        description: The unique key for each location.
+        data_tests:
+          - not_null
+          - unique
+      - name: location_name
+        description: The name of the location.
+      - name: order_count
+        description: Total number of orders placed at this location.
+        data_tests:
+          - not_null
+      - name: avg_order
+        description: Average order total in dollars for this location.
+      - name: total_revenue
+        description: Sum of all order totals in dollars for this location.
+
+semantic_models:
+  - name: location_performance
+    description: |
+      Summary of order metrics by location
+    model: ref('location_performance')
+    defaults:
+    entities:
+    - name: location_id
+      type: primary
+      expr: location_id
+    dimensions:
+    - name: location_name
+      type: categorical
+    - name: opened_date
+      type: time 
+    measures:
+    - name: location_order_count
+      description: count of orders
+      expr: order_count
+      agg: count
+      agg_time_dimension: opened_date
+    - name: avg_order
+      description: average order total
+      expr: avg_order
+      agg: average
+      agg_time_dimension: opened_date
+    - name: total_revenue
+      description: total revenue for a given location
+      expr: total_revenue
+      agg: sum
+      agg_time_dimension: opened_date

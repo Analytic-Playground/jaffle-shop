@@ -10,3 +10,7 @@ models:
         data_tests:
           - not_null
           - unique
+      - name: is_large_order
+        description: Boolean flag indicating if the order total exceeded $50 after tax conversion
+        data_tests:
+          - not_null
