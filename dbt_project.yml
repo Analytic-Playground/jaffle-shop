@@ -36,3 +36,6 @@ models:
       +materialized: view
     marts:
       +materialized: table
+
+on-run-end:
+  - "insert into main.model_audit_log values ('dbt_run_complete', current_timestamp)"
