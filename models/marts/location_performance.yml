@@ -18,6 +18,33 @@ models:
       - name: total_revenue
         description: Sum of all order totals in dollars for this location.
 
+unit_tests:
+  - name: test_safe_divide_handles_zero_orders
+    description: "test that divide by zero macro works correctly"
+    model: location_performance
+    given:
+      - input: ref('stg_locations')
+        rows:
+          - {
+            location_id: "abc-123",
+            location_name: "test location",
+            opened_date: "2020-01-01",
+            tax_rate: 0.1
+          }
+      - input: ref('stg_orders')
+        rows: []
+      - input: ref('location_regions')
+        rows:
+          - {location_id: "abc-123",
+             region: "test region"}
+    expect:
+      rows:
+        - {location_id: "abc-123",
+           location_name: "test location",
+           region: "test region",
+           order_count: 0,
+           avg_order: null,
+           total_revenue: null}
 semantic_models:
   - name: location_performance
     description: |
