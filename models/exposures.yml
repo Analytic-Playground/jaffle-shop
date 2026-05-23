@@ -1,0 +1,16 @@
+version: 2
+
+exposures:
+  - name: regional_performance_dashboard
+    type: dashboard
+    maturity: medium
+    url: https://yourbi.tool/dashboards/regional-performance
+    description: >
+      Executive dashboard showing location performance metrics
+      and customer lifetime value by region.
+    depends_on:
+      - ref('location_performance')
+      - ref('customers')
+    owner:
+      name: Your Name
+      email: your@email.com
